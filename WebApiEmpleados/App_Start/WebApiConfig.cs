@@ -15,15 +15,22 @@ namespace WebApiEmpleados
             json.SerializerSettings.PreserveReferencesHandling =
                 Newtonsoft.Json.PreserveReferencesHandling.Objects;
 
-
+            config.EnableCors();
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             // Web API routes
             // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+               name: "ActionApi",
+               routeTemplate: "v1/{controller}/{action}/{args}",
+               defaults: new { args = RouteParameter.Optional }
+           );
+
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "v1/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

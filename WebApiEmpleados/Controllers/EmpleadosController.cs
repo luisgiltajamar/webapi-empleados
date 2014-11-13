@@ -4,15 +4,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApiEmpleados.Models;
 using WebApiEmpleados.Models.ViewModels;
 using WebApiEmpleados.Repositorio;
 
 namespace WebApiEmpleados.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class EmpleadosController : ApiController
     {
-        IRepositorio<EmpleadoViewModel,Empleado> repo =
+        RepositorioEmpleados repo =
             new RepositorioEmpleados(new rrhhEntities()); 
         // GET: api/Empleados
         public IEnumerable<EmpleadoViewModel> Get()
@@ -21,12 +23,30 @@ namespace WebApiEmpleados.Controllers
         }
 
         // GET: api/Empleados/5
-        public EmpleadoViewModel Get(int id)
+        [HttpGet]
+        public EmpleadoViewModel PorId(int args)
         {
-            var datos = repo.Get(o => o.idEmpleado == id).First();
+            var datos = repo.Get(args);
             return datos;
         }
-
+        [HttpGet]
+        public List<EmpleadoViewModel> PorSalario(decimal args)
+        {
+            var datos = repo.GetBySalario(args);
+            return datos;
+        }
+        [HttpGet]
+        public List<EmpleadoViewModel> PorNombre(String args)
+        {
+            var datos = repo.GetByNombre(args);
+            return datos;
+        }
+        [HttpGet]
+        public List<EmpleadoViewModel> PorCargo(String args)
+        {
+            var datos = repo.GetByCargo(args);
+            return datos;
+        }
         // POST: api/Empleados
         public void Post([FromBody]EmpleadoViewModel value)
         {
