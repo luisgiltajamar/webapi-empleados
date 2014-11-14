@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using WebApiEmpleados.Models;
 using WebApiEmpleados.Models.ViewModels;
+using WebApiEmpleados.Utilidades;
 
 namespace WebApiEmpleados.Repositorio
 {
@@ -43,7 +44,7 @@ namespace WebApiEmpleados.Repositorio
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+               Logs.LogError(e);
                 return null;
             }
 
@@ -62,7 +63,7 @@ namespace WebApiEmpleados.Repositorio
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+              Logs.LogError("Fallo en el borrado");
             }
 
             return n;

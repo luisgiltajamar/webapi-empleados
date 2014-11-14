@@ -132,6 +132,7 @@
     <Compile Include="Repositorio\IRepositorio.cs" />
     <Compile Include="Repositorio\Repositorio.cs" />
     <Compile Include="Repositorio\RepositorioEmpleados.cs" />
+    <Compile Include="Utilidades\Logs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
