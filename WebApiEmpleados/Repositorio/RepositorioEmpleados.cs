@@ -17,12 +17,20 @@ namespace WebApiEmpleados.Repositorio
 
         public override EmpleadoViewModel Add(EmpleadoViewModel modelo)
         {
-            var ipProyecto = modelo.Proyectos.Select(o => o.idProyecto).ToArray();
+            var proyectos = new List<Proyecto>();
+            try
+            {
+                var ipProyecto = modelo.Proyectos.Select(o => o.idProyecto).ToArray();
 
-            var proyectos = Context.Proyecto.Where(o => ipProyecto.Contains(o.idProyecto));
+                 proyectos = Context.Proyecto.Where(o => ipProyecto.Contains(o.idProyecto)).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
             var obj = modelo.ToBaseDatos();
-            obj.Proyecto = proyectos.ToList();
+            obj.Proyecto = proyectos;
             Context.Empleado.Add(obj);
             Context.SaveChanges();
 
